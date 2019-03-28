@@ -1,13 +1,13 @@
 <template>
 	<div class="hello">
-
-
+			down
+		
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'HelloWorld',
+		name: 'StudentDown',
 		data() {
 			return {}
 		},

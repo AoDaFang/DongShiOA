@@ -21,14 +21,14 @@
 		
 		created:function(){
 			
-			//判断是否已经登录，若是没有登录，则跳转登录
-			if(localStorage.getItem('islogin') == 1){
-				this.$router.push({path: '/main'})
-				return
-			}else{
-				this.$router.push({path: '/login'})
-				return
-			}
+// 			//判断是否已经登录，若是没有登录，则跳转登录
+// 			if(localStorage.getItem('islogin') == 1){
+// 				this.$router.push({path: '/main'})
+// 				return
+// 			}else{
+// 				this.$router.push({path: '/login'})
+// 				return
+// 			}
 		},
 		
 		methods: {
