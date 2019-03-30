@@ -1,4 +1,6 @@
-import axios from 'axios'
+import request from './request.js'
+
+console.log(request)
 
 var host = "http://api.netallin.com/"
 
@@ -248,33 +250,23 @@ var paymentUrl = host + 'apis/student/payment'
 // }
 // 
 
-//添加学生的方法
-function addUser(params) {
-
-	return new Promise((resolve, reject) => {
-		axios.post(addUserUrl, params)
-			.then((response) => {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				reject(error);
-			});
-	})
-}
 
 //添加学费计划的方法
-function addPayment(params){
-	return new Promise((resolve, reject) => {
-		axios.post(paymentUrl, params)
-			.then((response) => {
-				resolve(response.data);
-			})
-			.catch((error) => {
-				reject(error);
-			});
-	})
+function addPayment(params) {
+  return request.request({
+    url: paymentUrl,
+    method: 'post',
+    params: params
+  })
 }
-
+//添加学生的方法
+function addUser(params) {
+  return request.request({
+    url: addUserUrl,
+    method: 'post',
+    params: params
+  })
+}
 
 export default {
 	loginUrl,
