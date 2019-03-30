@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 var host = "http://api.netallin.com/"
 
 
@@ -20,7 +22,8 @@ var classListUrl = host + "apis/class"
 
 //获取用列表
 //类型: GET
-var userListUrl = host + "apis/student?results=20&size=500&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InVpZCI6Miwic3R1Tm8iOiIyIn0sImNyZWF0ZWQiOjE1NTM3MzkxNjEsImV4cCI6NzIwMDAwMH0%3D.bCWpCikQafJMCqMl6UaYoNXDH%2F%2Bp84%2BofoHqm98HC9c%3D"
+var userListUrl = host +
+	"apis/student?results=20&size=500&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InVpZCI6Miwic3R1Tm8iOiIyIn0sImNyZWF0ZWQiOjE1NTM3MzkxNjEsImV4cCI6NzIwMDAwMH0%3D.bCWpCikQafJMCqMl6UaYoNXDH%2F%2Bp84%2BofoHqm98HC9c%3D"
 //参数:
 //  默认参数results和size
 //范例:  http://api.netallin.com/apis/student?results=20&size=500&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InVpZCI6Miwic3R1Tm8iOiIyIn0sImNyZWF0ZWQiOjE1NTM3MzkxNjEsImV4cCI6NzIwMDAwMH0%3D.bCWpCikQafJMCqMl6UaYoNXDH%2F%2Bp84%2BofoHqm98HC9c%3D
@@ -67,7 +70,7 @@ var scoreMinusUrl = host + 'apis/student/score/minus?from=20190329&to=20190428'
 
 //获取单个学生的扣分记录的接口
 //类型:GET
-var studentScore = host + 'apis/student/score' 
+var studentScore = host + 'apis/student/score'
 // var dict = {
 // 	_id:591,
 // 	term:6,
@@ -86,7 +89,7 @@ var studentScore = host + 'apis/student/score'
 
 //添加违纪接口
 //POST
-var studentAddWrongUrl = host+ '/apis/student/score'
+var studentAddWrongUrl = host + '/apis/student/score'
 //参数
 // {
 // 	classId: "1901"
@@ -112,7 +115,7 @@ var studentAddWrongUrl = host+ '/apis/student/score'
 
 
 
-var addUserUrl = host+"apis/student"
+var addUserUrl = host + "apis/student"
 //参数:
 /*
 {
@@ -160,6 +163,118 @@ var addUserUrl = host+"apis/student"
 }
 */
 
+//更改缴费计划的接口
+//POST
+var paymentUrl = host + 'apis/student/payment'
+// var dict = {
+// 	{
+// 		"term": "10",
+// 		"tuition_way": "1",
+// 		"course": "1",
+// 		"cuppon_way": "0",
+// 		"tuitionOrigin": 33800,
+// 		"tuitionMinus": 0,
+// 		"tuition": 33800,
+// 		"room_way": "2",
+// 		"room_rent": 6000,
+// 		"room_deposit": 600,
+// 		"room_manage": 700,
+// 		"room_net": 300,
+// 		"pc_way": "1",
+// 		"pc_rent": 0,
+// 		"pc_buy": 1700,
+// 		"pc_deposit": 0,
+// 		"cloth": 300,
+// 		"blanket": 200,
+// 		"clothflag": "1",
+// 		"blanketflag": "1",
+// 		"fee": 9800,
+// 		"feeTotal": 43600,
+// 		"name": "1",
+// 		"phone": "13800000000",
+// 		"idcard": "110100201101010253",
+// 		"address": "山西太原",
+// 		"edu_level": "3",
+// 		"edu_school": "",
+// 		"edu_profession": "1",
+// 		"classId": "软工B班",
+// 		"sex": "1",
+// 		"father": "",
+// 		"mother": "mom",
+// 		"fatherPhone": "",
+// 		"motherPhone": "13000000001",
+// 		"source": "3",
+// 		"traffic": "1",
+// 		"enroller": "",
+// 		"consultant": "",
+// 		"remark": "",
+// 		"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7InVpZCI6Miwic3R1Tm8iOiIyIn0sImNyZWF0ZWQiOjE1NTM5MzYxNzMsImV4cCI6NzIwMDAwMH0=.2yzTKD+3TNPAB5U6lMJucIoq5E5hXcZOwJqS7figENU=",
+// 		"uid": 1589,
+// 		"tuitionList": [{
+// 				"key": 0,
+// 				"deadline": "2019-03-30",
+// 				"money": 338,
+// 				"paid": 0,
+// 				"left": 338,
+// 				"tranId": "190330170008591494"
+// 			},
+// 			{
+// 				"key": 1,
+// 				"deadline": "2019-04-29",
+// 				"money": 33462,
+// 				"tranId": "1903301700187321027",
+// 				"paid": 0,
+// 				"left": 33462
+// 			}
+// 		],
+// 		"feeList": [{
+// 				"key": 0,
+// 				"deadline": "2019-03-30",
+// 				"money": 980,
+// 				"paid": 0,
+// 				"left": 980,
+// 				"tranId": "190330170008641241"
+// 			},
+// 			{
+// 				"key": 1,
+// 				"deadline": "2019-04-29",
+// 				"money": 8820,
+// 				"tranId": "1903301700252441137",
+// 				"paid": 0,
+// 				"left": 8820
+// 			}
+// 		]
+// 	}
+// }
+// 
+
+//添加学生的方法
+function addUser(params) {
+
+	return new Promise((resolve, reject) => {
+		axios.post(addUserUrl, params)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	})
+}
+
+//添加学费计划的方法
+function addPayment(params){
+	return new Promise((resolve, reject) => {
+		axios.post(paymentUrl, params)
+			.then((response) => {
+				resolve(response.data);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	})
+}
+
 
 export default {
 	loginUrl,
@@ -170,7 +285,11 @@ export default {
 	addUserUrl,
 	scoreUrl,
 	scoreMinusUrl,
-	studentAddWrongUrl,//添加违纪的接口
+	studentAddWrongUrl, //添加违纪的接口
 	//单人的获取学分扣分记录的接口
-	studentScore
+	studentScore,
+	addPayment,
+
+	paymentUrl, //更改缴费计划的接口
+	addUser
 }

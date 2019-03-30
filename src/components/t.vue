@@ -2,7 +2,7 @@
 	<div class="hello">
 		
 		
-
+		
 	</div>
 </template>
 
@@ -13,7 +13,7 @@
 			return {}
 		},
 		methods: {
-
+			
 		},
 	}
 </script>

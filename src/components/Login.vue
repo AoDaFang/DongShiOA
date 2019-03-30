@@ -91,6 +91,10 @@
 					window.localStorage.setItem('islogin', '1');
 					window.localStorage.setItem('token', res.data.token);
 					window.localStorage.setItem('user',JSON.stringify(res.data.user));
+					
+					//将classlist存入store中
+					this.$store.commit('setClassList',res.data.classlist)
+					
 					this.$message({
 						type:"success",
 						message:"登录成功"

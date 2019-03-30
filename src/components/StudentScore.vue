@@ -70,7 +70,7 @@
 		</el-pagination>
 
 		<!-- 查看扣分记录的对话框 -->
-		<div class="alert-student-score" v-if="socre_item">
+		<div class="alert-student-score" >
 			<el-dialog :title="'扣分详情'" :visible.sync="student_score">
 				<el-table :data="socre_item" style="width: 100%">
 					<el-table-column prop="_id" label="id">
@@ -156,7 +156,7 @@
 				page_index: 1,
 
 				//存储某个学生的扣分记录,用以展示某个学生的扣分记录
-				socre_item: '',
+				socre_item: [],
 				//是否弹出扣分记录对话框
 				student_score: false,
 
