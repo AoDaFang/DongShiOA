@@ -273,21 +273,54 @@
 			<div v-if="active == 2" class="from3">
 				<div class="form3-item-title">学费-缴费时间(总额：{{this.allin}})</div>
 				<div class="form3-table">
-					
+					<div class="form3-table-row">
+						<div class="form3-table-block">缴费时间</div>
+						<div class="form3-table-block">金额</div>
+						<div class="form3-table-block">操作</div>
+					</div>
+					<div class="form3-table-row">
+						<div class="form3-table-block">
+							<span v-if="!form3.input1" @click="form3.input1 = !form3.input1" autofocus="autofocus">{{getNowFormatDate()}}</span>
+							<el-input v-if="form3.input1" @blur="form3.input1 = !form3.input1" :value="getNowFormatDate()" autofocus></el-input>
+						</div>
+						<div class="form3-table-block">
+							<span v-if="!form3.input2" @click="form3.input2 = !form3.input2" autofocus="autofocus">{{allin}}</span>
+							<el-input v-if="form3.input2" @blur="form3.input2 = !form3.input2" v-model="allin" autofocus></el-input>
+						</div>
+						<div class="form3-table-block"><i class="el-icon-delete"></i> <i class="el-icon-plus"></i></div>
+					</div>
 				</div>
 				<div class="form3-item-title">杂费-缴费时间(总额：{{this.extras}})</div>
 				<div class="form3-table">
-					
+					<div class="form3-table-row">
+						<div class="form3-table-block">缴费时间</div>
+						<div class="form3-table-block">金额</div>
+						<div class="form3-table-block">操作</div>
+					</div>
+					<div class="form3-table-row">
+						<div class="form3-table-block">
+							<span v-if="!form3.input3" @click="form3.input3 = !form3.input3" autofocus="autofocus">{{getNowFormatDate()}}</span>
+							<el-input v-if="form3.input3" @blur="form3.input3 = !form3.input3" :value="getNowFormatDate()" autofocus></el-input>
+						</div>
+						<div class="form3-table-block">
+							<span v-if="!form3.input4" @click="form3.input4 = !form3.input4" autofocus="autofocus">{{extras}}</span>
+							<el-input v-if="form3.input4" @blur="form3.input4 = !form3.input4" v-model="extras" autofocus></el-input>
+						</div>
+						<div class="form3-table-block"><i class="el-icon-delete"></i> <i class="el-icon-plus"></i></div>
+					</div>
 				</div>
 			</div>
 			<!-- 表格第四个部分 -->
-			<div v-if="active == 3">
-				表格第四个部分
+			<div style="text-align: center; font-size: 30px; padding: 30px;" v-if="active == 3">
+				添加完成
+				<i style="width: 50px; height: 50px; color: green;" class="el-icon-success"></i>
 			</div>
 
-
-			<el-button style="margin-top: 12px;" @click="next">下一步</el-button>
-
+			<div class="deal-btns">
+				<el-button v-if="this.active != 0 && this.active != 3" style="margin-top: 12px;" @click="prev">上一步</el-button>
+				<el-button v-if="this.active != 2 && this.active != 3" style="margin-top: 12px;" @click="next">下一步</el-button>
+				<el-button v-if="this.active == 2 && this.active != 3" style="margin-top: 12px;" type="primary" @click="onSubmit">提交</el-button>
+			</div>
 		</div>
 
 
@@ -305,7 +338,7 @@
 				form: {
 					name: "",
 					phone: "",
-					id_num: "",
+					id_num: 110100201101010123,
 					address: "",
 					//学历
 					education: "",
@@ -379,16 +412,94 @@
 					quilt_money: 200
 				},
 
-				
-				//步骤条数据
-				active: 2,
+				//表格3的数据
+				form3: {
+					//四个input框的状态
+					input1: false,
+					input2: false,
+					input3: false,
+					input4: false
+				},
 
+				//步骤条数据
+				active: 0,
+
+				//token
+				token: window.localStorage.getItem("token"),
+
+				user: JSON.parse(window.localStorage.getItem("user"))
 
 			}
 		},
 		methods: {
 			onSubmit() {
-				console.log("submit!");
+				var url = this.api.addUserUrl
+				var dict = {
+					"term": this.form2.length_of_schooling,
+					"tuition_way": this.form2.pay_method,
+					"course": this.form2.major,
+					"cuppon_way": this.form2.sale_method,
+					"tuitionOrigin": this.form2.tuition,
+					"tuitionMinus": this.form2.cash_discount,
+					"tuition": this.form2.tuition,
+					"room_way": this.form2.accommodation,
+					"room_rent": this.form2.accommodation_money,
+					"room_deposit": this.form2.accommodation_deposit,
+					"room_manage": this.form2.management,
+					"room_net": this.form2.net_money,
+					"pc_way": this.form2.computer,
+					"pc_rent": this.form2.computer_rent,
+					"pc_buy": this.form2.computer_buy,
+					"pc_deposit": this.form2.computer_deposit,
+					"cloth": this.form2.uniform_money,
+					"blanket": this.form2.quilt_money,
+					"clothflag": this.form2.uniform,
+					"blanketflag": this.form2.quilt,
+					"fee": this.extras,
+					"feeTotal": this.allin,
+					"name": this.form.name,
+					"phone": this.form.phone,
+					"idcard": this.form.id_num,
+					"address": this.form.address,
+					"edu_level": this.form.education,
+					"edu_school": this.form.graduate_school,
+					"edu_profession": this.form.graduate_time,
+					"classId": this.form.enter_class,
+					"sex": this.form.gender,
+					"father": this.form.father,
+					"mother": this.form.mother,
+					"fatherPhone": this.form.father_phone,
+					"motherPhone": this.form.mother_phone,
+					"source": this.form.msg_from,
+					"traffic": this.form.transportation,
+					"enroller": this.form.msg_person,
+					"consultant": this.form.msg_teacher,
+					"remark": this.form.remarks,
+					"token": this.token
+				}
+
+				// console.log(dict)
+				this.axios.post(url, dict).then(res => {
+					console.log(res.data)
+					if (res.data.code == 1) {
+						this.$message({
+							message: '添加成功',
+							type: 'success'
+						});
+						this.active = 3
+					} else {
+						this.$message({
+							message: '添加失败,' + res.data.err.errmsg,
+							type: 'error'
+						});
+					}
+				}).catch(error => {
+					this.$message({
+						message: '添加失败',
+						type: 'error'
+					});
+					console.log(error)
+				})
 			},
 
 			//学习时长改变触发的方法
@@ -583,6 +694,30 @@
 
 
 				if (this.active++ > 3) this.active = 0;
+			},
+
+			prev: function() {
+
+				if (this.active-- < 0) {
+					this.active = 0
+				}
+			},
+
+			//获取当前时间，格式YYYY-MM-DD
+			getNowFormatDate: function() {
+				var date = new Date();
+				var seperator1 = "-";
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var strDate = date.getDate();
+				if (month >= 1 && month <= 9) {
+					month = "0" + month;
+				}
+				if (strDate >= 0 && strDate <= 9) {
+					strDate = "0" + strDate;
+				}
+				var currentdate = year + seperator1 + month + seperator1 + strDate;
+				return currentdate;
 			}
 		},
 		computed: {
@@ -709,9 +844,60 @@
 
 	.form3-item-title {
 		text-align: center;
+		margin-top: 30px;
+		margin-bottom: 20px;
 	}
-	
-	.form3-table{
+
+	.form3-table {
 		border: 1px solid #eee;
+		border-bottom: none;
+		border-right: none;
+
+		padding-bottom: -1px;
+		width: 70%;
+		margin: 0 auto;
+	}
+
+	.form3-table-row {
+		border-bottom: 1px solid #eee;
+		display: flex;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+	}
+
+	.form3-table-row:nth-last-child {
+		border: none;
+	}
+
+	.form3-table-block {
+		width: 33%;
+		border-right: 1px solid #eee;
+		text-align: center;
+		height: 40px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	.form3-table-block:nth-last-child {
+		border: none;
+	}
+
+	.form3-table-block>i {
+		background-color: #36bafb;
+		border-radius: 50%;
+		display: block;
+		width: 25px;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		color: #fff;
+	}
+
+	.deal-btns {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

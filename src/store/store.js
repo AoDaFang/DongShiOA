@@ -19,7 +19,8 @@ const store = new Vuex.Store({
 	//state,表示状态，作用是储存各个组件共用的数据
 	state:{
 		//记录首页的竖向导航栏是否折叠
-		isFlex:false
+		isFlex:false,
+		
 	},
 	
 	
