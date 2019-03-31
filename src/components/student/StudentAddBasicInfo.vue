@@ -1,18 +1,18 @@
 <template>
 	<div class="hello">
-		<el-form ref="form" :model="form" label-width="100px">
+		<el-form ref="form" :model="form" :rules="rules" label-width="100px">
 			<div>
 				<div>
-					<el-form-item label="* 姓名">
+					<el-form-item label="姓名" prop="name">
 						<el-input v-model="form.name"></el-input>
 					</el-form-item>
-					<el-form-item label="* 手机号">
+					<el-form-item label="* 手机号" prop="phone">
 						<el-input v-model="form.phone"></el-input>
 					</el-form-item>
-					<el-form-item label="* 身份证">
+					<el-form-item label="身份证" prop="id_num">
 						<el-input v-model="form.id_num"></el-input>
 					</el-form-item>
-					<el-form-item label="* 户籍地址">
+					<el-form-item label="户籍地址" prop="address">
 						<el-input v-model="form.address"></el-input>
 					</el-form-item>
 
@@ -52,21 +52,21 @@
 				</div>
 
 				<div>
-					<el-form-item label="* 性别">
+					<el-form-item label="性别" prop="gender">
 						<el-radio v-model="form.gender" label="1">男</el-radio>
 						<el-radio v-model="form.gender" label="2">女</el-radio>
 					</el-form-item>
 					<el-form-item label="父亲">
 						<el-input v-model="form.father" placeholder="请输入父亲姓名"></el-input>
 					</el-form-item>
-					<el-form-item label="* 母亲">
+					<el-form-item label="母亲" prop="mother">
 						<el-input v-model="form.mother" placeholder="请输入母亲姓名"></el-input>
 					</el-form-item>
 					<el-form-item label="父亲电话">
 						<el-input v-model="form.father_phone"></el-input>
 					</el-form-item>
 
-					<el-form-item label="* 母亲电话">
+					<el-form-item label="母亲电话" prop="mother_phone">
 						<el-input v-model="form.mother_phone"></el-input>
 					</el-form-item>
 
@@ -106,10 +106,24 @@
 	export default {
 		name: 'HelloWorld',
 		data() {
+			var validateIdNum = (rule, value, callback) => {
+				 var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+				
+				if (value === '') {
+					callback(new Error('请输入身份证号'));
+				} else if (reg.test(value) === false) {
+					callback(new Error('身份证号码格式错误'));
+				} else {
+					callback();
+				}
+			};
+			
+			
+			
 			return {
 				//表格1的数据
 				form: {
-					name: "",
+					name: '',
 					phone: "",
 					id_num: 110100201101010123,
 					address: "",
@@ -117,43 +131,87 @@
 					education: "",
 					graduate_school: "",
 					graduate_time: "",
-				
+
 					//专业(专业或者职业)
 					major: "",
 					enter_class: "",
 					//备注
 					remarks: "",
-					gender: "",
+					gender: "1",
 					father: "",
 					mother: "",
 					father_phone: "",
 					mother_phone: "",
-				
+
 					//信息来源 招生老师等
 					msg_from: "",
-				
+
 					//交通方式
 					transportation: "",
-				
+
 					//推荐人
 					msg_person: "",
-				
+
 					//咨询老师
 					msg_teacher: ""
-				
+
 				},
-				
+
+				rules: {
+					name: [{
+						required: true,
+						message: '请输入姓名',
+						trigger: 'blur'
+					}],
+					address:[{
+						required: true,
+						message: '请输入地址',
+						trigger: 'blur'
+					}],
+					gender:[{
+						required: true,
+						message: '请选择性别',
+						trigger: 'blur'
+					}],
+					phone:[{
+						required: true,
+						message: '请输入手机号',
+						trigger: 'blur'
+					}],
+					mother:[{
+						required: true,
+						message: '请填入母亲姓名',
+						trigger: 'blur'
+					}],
+					mother_phone:[{
+						required: true,
+						message: '请填入母亲手机号',
+						trigger: 'blur'
+					}],
+					
+					//自定义的校验方法
+					id_num:[{
+						validator:validateIdNum,
+						trigger: 'change'
+					}]
+				}
 			}
 		},
-		
-		created:function(){
+
+		created: function() {
 			this.form = this.$store.state.StudentBasicInfoForm
 		},
-		
-		beforeUpdate:function(){
-			this.$store.commit("SetStudentBasicInfoForm",this.form)
+
+		beforeUpdate: function() {
+			//更新 store 中的表单数据
+			this.$store.commit("SetStudentBasicInfoForm", this.form)
+			
+			// 数据更新后  表单是否验证通过也要更新到 store 中
+			this.$refs['form'].validate((valid) => {
+				this.$store.commit("SetIsStudentAddBasicInfoTrue", valid)
+			});
 		},
-		
+
 		methods: {
 
 		},
@@ -188,7 +246,7 @@
 
 	.el-form-item {
 		width: 100%;
-		margin-bottom: 10px !important;
+		margin-bottom: 20px !important;
 	}
 
 	.remark {

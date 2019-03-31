@@ -83,7 +83,10 @@ const store = new Vuex.Store({
 		//费用计划的杂费计划列表
 		feeList:[
 			
-		]
+		],
+		
+		//记录 studentAddBasicInfo 中的数据是否验证成功
+		isStudentAddBasicInfoTrue:false
 		//======学生添加的数据=========
 	},
 
@@ -153,6 +156,11 @@ const store = new Vuex.Store({
 		SetfeeList: function(state, title) {
 			state.feeList = title
 		},
+		
+		//设置 StudentAddBasic中的数据
+		SetIsStudentAddBasicInfoTrue:function(state, title){
+			state.isStudentAddBasicInfoTrue = title
+		}
 	},
 
 	//4.action 表示动作， 要求异步修改state中的值, 需要在这里编写函数

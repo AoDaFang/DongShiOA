@@ -153,120 +153,85 @@
 				console.log(addUserRes)
 				console.log(paymentRes)
 				
-// 				var dict2 = {
-// 					uid:
-// 				}
-// 				//====
-// 				var fun1 = function(){
-// 					return axios.get(bookListUrl)
-// 				}
-// 				var fun2 = function(){
-// 					return axios.get(musicListUrl)
-// 				}
-// 				var fun3 = function(){
-// 					return axios.get(filmListUrl)
-// 				}
-// 				
-// 				var callback = function(r1,r2,r3){
-// 					console.log(r1)
-// 					console.log(r2)
-// 					console.log(r3)
-// 				}
-// 				
-// 				//发出多个请求的接口
-// 				axios.all([fun1(), fun2(), fun3()])
-// 					.then(axios.spread(callback))
-				
-				//====
-				
-				
-				// console.log(dict)
-// 				this.axios.post(url, dict).then(res => {
-// 					console.log(res.data)
-// 					if (res.data.code == 1) {
-// 						this.$message({
-// 							message: '添加成功',
-// 							type: 'success'
-// 						});
-// 						this.active = 3
-// 					} else {
-// 						this.$message({
-// 							message: '添加失败,' + res.data.err.errmsg,
-// 							type: 'error'
-// 						});
-// 					}
-// 				}).catch(error => {
-// 					this.$message({
-// 						message: '添加失败',
-// 						type: 'error'
-// 					});
-// 					console.log(error)
-// 				})
 			},
 
 			
 
 			//步骤条方法
 			next() {
-				console.log('next')
-				if (!this.$store.state.StudentBasicInfoForm.name) {
+				
+				var boolFlag = this.$store.state.isStudentAddBasicInfoTrue
+				
+				if(boolFlag){
+					// 跳转
+					if (this.active++ > 3) this.active = 0;
+				}else{
 					this.$message({
 						type: "error",
-						message: "请填入姓名"
+						message: "请填入必填信息",
 					});
 					return
 				}
+				
+// 				console.log('next')
+// 				if (!this.$store.state.StudentBasicInfoForm.name) {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入姓名"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (!this.$store.state.StudentBasicInfoForm.phone) {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入手机号"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (!this.$store.state.StudentBasicInfoForm.id_num) {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入身份证号"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (!this.$store.state.StudentBasicInfoForm.address) {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入家庭住址"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (!this.$store.state.StudentBasicInfoForm.gender) {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入性别"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (this.$store.state.StudentBasicInfoForm.mother == "") {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入母亲姓名"
+// 					});
+// 					return
+// 				}
+// 
+// 				if (this.$store.state.StudentBasicInfoForm.mother_phone == "") {
+// 					this.$message({
+// 						type: "error",
+// 						message: "请填入母亲手机号"
+// 					});
+// 					return
+// 				}
+// 
 
-				if (!this.$store.state.StudentBasicInfoForm.phone) {
-					this.$message({
-						type: "error",
-						message: "请填入手机号"
-					});
-					return
-				}
-
-				if (!this.$store.state.StudentBasicInfoForm.id_num) {
-					this.$message({
-						type: "error",
-						message: "请填入身份证号"
-					});
-					return
-				}
-
-				if (!this.$store.state.StudentBasicInfoForm.address) {
-					this.$message({
-						type: "error",
-						message: "请填入家庭住址"
-					});
-					return
-				}
-
-				if (!this.$store.state.StudentBasicInfoForm.gender) {
-					this.$message({
-						type: "error",
-						message: "请填入性别"
-					});
-					return
-				}
-
-				if (this.$store.state.StudentBasicInfoForm.mother == "") {
-					this.$message({
-						type: "error",
-						message: "请填入母亲姓名"
-					});
-					return
-				}
-
-				if (this.$store.state.StudentBasicInfoForm.mother_phone == "") {
-					this.$message({
-						type: "error",
-						message: "请填入母亲手机号"
-					});
-					return
-				}
-
-
-				if (this.active++ > 3) this.active = 0;
+				
 			},
 
 			prev: function() {
