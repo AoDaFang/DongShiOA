@@ -147,7 +147,7 @@
 					msg_from: "",
 
 					//交通方式
-					transportation: "",
+					transportation: "1",
 
 					//推荐人
 					msg_person: "",

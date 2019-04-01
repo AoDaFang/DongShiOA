@@ -206,6 +206,13 @@
 					//设置住宿信息
 					this.form2.accommodation_money = 3600;
 					this.form2.management = 300
+					
+					//设置网费
+					if(this.form2.accommodation == 2){
+						this.form2.net_money = 160;
+					}else{
+						this.form2.net_money = 0;
+					}
 
 					//设置电脑租用信息
 					if (this.form2.computer == 2) {
@@ -217,6 +224,13 @@
 					//设置住宿信息
 					this.form2.accommodation_money = 6000;
 					this.form2.management = 700
+					
+					//设置网费
+					if(this.form2.accommodation == 2){
+						this.form2.net_money = 300;
+					}else{
+						this.form2.net_money = 0;
+					}
 
 					//设置电脑租用信息
 					if (this.form2.computer == 2) {
@@ -228,6 +242,13 @@
 					//设置住宿信息
 					this.form2.accommodation_money = 9600;
 					this.form2.management = 1000
+					
+					//设置网费
+					if(this.form2.accommodation == 2){
+						this.form2.net_money = 400;
+					}else{
+						this.form2.net_money = 0;
+					}
 
 					//设置电脑租用信息
 					if (this.form2.computer == 2) {
@@ -239,6 +260,9 @@
 					//设置住宿信息
 					this.form2.accommodation_money = 18000;
 					this.form2.management = 2500
+					
+					//设置网费
+					this.form2.net_money = 0;
 
 					//设置电脑租用信息
 					if (this.form2.computer == 2) {
@@ -257,25 +281,50 @@
 					this.form2.accommodation_money = 0;
 					this.form2.management = 0;
 					this.form2.net_money = 0;
-				} else {
+				} else if(index == 2){
 					this.form2.accommodation_deposit = 600;
 					if (this.form2.length_of_schooling == 6) {
 						this.form2.accommodation_money = 3600;
 						this.form2.management = 300
+						this.form2.net_money = 160;
 					}
 					if (this.form2.length_of_schooling == 10) {
 						this.form2.accommodation_money = 6000;
 						this.form2.management = 700
+						this.form2.net_money = 300;
 					}
 					if (this.form2.length_of_schooling == 16) {
 						this.form2.accommodation_money = 9600;
 						this.form2.management = 1000
+						this.form2.net_money = 480;
 					}
 					if (this.form2.length_of_schooling == 30) {
 						this.form2.accommodation_money = 18000;
 						this.form2.management = 2500
+						this.form2.net_money = 0;
 					}
-
+				}else if(index == 1){
+					this.form2.accommodation_deposit = 600;
+					if (this.form2.length_of_schooling == 6) {
+						this.form2.accommodation_money = 3600;
+						this.form2.management = 300
+						this.form2.net_money = 0;
+					}
+					if (this.form2.length_of_schooling == 10) {
+						this.form2.accommodation_money = 6000;
+						this.form2.management = 700
+						this.form2.net_money = 0;
+					}
+					if (this.form2.length_of_schooling == 16) {
+						this.form2.accommodation_money = 9600;
+						this.form2.management = 1000
+						this.form2.net_money = 0;
+					}
+					if (this.form2.length_of_schooling == 30) {
+						this.form2.accommodation_money = 18000;
+						this.form2.management = 2500
+						this.form2.net_money = 0;
+					}
 				}
 			},
 

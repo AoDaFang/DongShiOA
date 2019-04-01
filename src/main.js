@@ -9,11 +9,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from '@/store/store.js'
 
+
+//因为在项目开发初期没有用到模块化思想进行 接口文件的创建  使用api的时候 用了原始的请求方式  api中只有请求地址
+//interfc 中有模块化思想的接口文件
 import api from '../static/interface/interface.js'
+import interfc from '@/apis/index.js'
+Vue.prototype.interfc= interfc;
 
 Vue.use(ElementUI);
-Vue.prototype.api = api;
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

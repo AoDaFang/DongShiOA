@@ -1,6 +1,10 @@
-import request from './request.js'
+/**
+ * 废弃的文件
+ * 
+ */
 
-console.log(request)
+
+
 
 var host = "http://api.netallin.com/"
 
@@ -251,22 +255,7 @@ var paymentUrl = host + 'apis/student/payment'
 // 
 
 
-//添加学费计划的方法
-function addPayment(params) {
-  return request.request({
-    url: paymentUrl,
-    method: 'post',
-    params: params
-  })
-}
-//添加学生的方法
-function addUser(params) {
-  return request.request({
-    url: addUserUrl,
-    method: 'post',
-    params: params
-  })
-}
+
 
 export default {
 	loginUrl,
@@ -280,8 +269,6 @@ export default {
 	studentAddWrongUrl, //添加违纪的接口
 	//单人的获取学分扣分记录的接口
 	studentScore,
-	addPayment,
 
 	paymentUrl, //更改缴费计划的接口
-	addUser
 }

@@ -105,24 +105,24 @@
 				<el-tabs v-model="alert_box_active" @tab-click="handleClick">
 					<!-- 选项卡第一部分 -->
 					<el-tab-pane label="基本信息" name="0">
-						<el-form ref="form" :model="tform1" label-width="100px">
+						<el-form ref="form" :model="student_item" label-width="100px">
 							<div>
 								<div>
 									<el-form-item label="* 姓名">
-										<el-input v-model="tform1.name"></el-input>
+										<el-input v-model="student_item.name"></el-input>
 									</el-form-item>
 									<el-form-item label="* 手机号">
-										<el-input v-model="tform1.phone"></el-input>
+										<el-input v-model="student_item.phone"></el-input>
 									</el-form-item>
 									<el-form-item label="* 身份证">
-										<el-input v-model="tform1.id_num"></el-input>
+										<el-input v-model="student_item.id_num"></el-input>
 									</el-form-item>
 									<el-form-item label="* 户籍地址">
-										<el-input v-model="tform1.address"></el-input>
+										<el-input v-model="student_item.address"></el-input>
 									</el-form-item>
 
 									<el-form-item label="学历">
-										<el-select v-model="tform1.education" placeholder="请选择学历">
+										<el-select v-model="student_item.education" placeholder="请选择学历">
 											<el-option label="初中" value="shanghai"></el-option>
 											<el-option label="中专" value="beijing"></el-option>
 											<el-option label="高中" value="beijing"></el-option>
@@ -133,21 +133,21 @@
 									</el-form-item>
 
 									<el-form-item label="毕业院校">
-										<el-input v-model="tform1.graduate_school"></el-input>
+										<el-input v-model="student_item.graduate_school"></el-input>
 									</el-form-item>
 
 									<el-form-item label="毕业时间">
 										<el-col :span="11">
-											<el-date-picker type="date" placeholder="选择日期" v-model="tform1.graduate_time" style="width: 100%;"></el-date-picker>
+											<el-date-picker type="date" placeholder="选择日期" v-model="student_item.graduate_time" style="width: 100%;"></el-date-picker>
 										</el-col>
 									</el-form-item>
 
 									<el-form-item label="专业">
-										<el-input v-model="tform1.major"></el-input>
+										<el-input v-model="student_item.major"></el-input>
 									</el-form-item>
 
 									<el-form-item label="入学班级">
-										<el-select v-model="tform1.enter_class" placeholder="请选择班级">
+										<el-select v-model="student_item.enter_class" placeholder="请选择班级">
 											<el-option label="1802" value="shanghai"></el-option>
 											<el-option label="1804" value="beijing"></el-option>
 										</el-select>
@@ -158,39 +158,39 @@
 
 								<div>
 									<el-form-item label="* 性别">
-										<el-radio v-model="tform1.gender" label="1">男</el-radio>
-										<el-radio v-model="tform1.gender" label="2">女</el-radio>
+										<el-radio v-model="student_item.gender" label="1">男</el-radio>
+										<el-radio v-model="student_item.gender" label="2">女</el-radio>
 									</el-form-item>
 									<el-form-item label="父亲">
-										<el-input v-model="tform1.father" placeholder="请输入父亲姓名"></el-input>
+										<el-input v-model="student_item.father" placeholder="请输入父亲姓名"></el-input>
 									</el-form-item>
 									<el-form-item label="* 母亲">
-										<el-input v-model="tform1.mother" placeholder="请输入母亲姓名"></el-input>
+										<el-input v-model="student_item.mother" placeholder="请输入母亲姓名"></el-input>
 									</el-form-item>
 									<el-form-item label="父亲电话">
-										<el-input v-model="tform1.father_phone"></el-input>
+										<el-input v-model="student_item.father_phone"></el-input>
 									</el-form-item>
 
 									<el-form-item label="* 母亲电话">
-										<el-input v-model="tform1.mother_phone"></el-input>
+										<el-input v-model="student_item.mother_phone"></el-input>
 									</el-form-item>
 
 									<el-form-item label="信息来源">
-										<el-input v-model="tform1.msg_from"></el-input>
+										<el-input v-model="student_item.msg_from"></el-input>
 									</el-form-item>
 
 									<el-form-item label="交通方式">
-										<el-radio v-model="tform1.transportation" label="1">大巴</el-radio>
-										<el-radio v-model="tform1.transportation" label="2">火车</el-radio>
-										<el-radio v-model="tform1.transportation" label="3">私家车</el-radio>
+										<el-radio v-model="student_item.transportation" label="1">大巴</el-radio>
+										<el-radio v-model="student_item.transportation" label="2">火车</el-radio>
+										<el-radio v-model="student_item.transportation" label="3">私家车</el-radio>
 									</el-form-item>
 
 									<el-form-item label="推荐人">
-										<el-input v-model="tform1.msg_person"></el-input>
+										<el-input v-model="student_item.msg_person"></el-input>
 									</el-form-item>
 
 									<el-form-item label="咨询老师">
-										<el-input v-model="tform1.msg_teacher"></el-input>
+										<el-input v-model="student_item.msg_teacher"></el-input>
 									</el-form-item>
 
 
@@ -199,7 +199,7 @@
 
 
 							<el-form-item label="备注" class="remark">
-								<el-input type="textarea" v-model="tform1.remark" height="100"></el-input>
+								<el-input type="textarea" v-model="student_item.remark" height="100"></el-input>
 							</el-form-item>
 						</el-form>
 
@@ -208,11 +208,11 @@
 
 					<!-- 选项卡第二部分 -->
 					<el-tab-pane label="费用信息" name="1">
-						<el-form class="form2" ref="form2" :model="form2" label-width="100px">
+						<el-form class="form2" ref="form2" :model="fee" label-width="100px">
 							<div class="form2-item">
 								<div class="form2-item-left">
 									<el-form-item label="学制">
-										<el-select v-model="form2.length_of_schooling" placeholder="请选择学历" @change="dealSelectLengthTime">
+										<el-select v-model="fee.term" placeholder="请选择学历" @change="dealSelectLengthTime">
 											<el-option label="6个月" value="6"></el-option>
 											<el-option label="10个月" value="10"></el-option>
 											<el-option label="16个月" value="16"></el-option>
@@ -220,20 +220,20 @@
 										</el-select>
 									</el-form-item>
 									<el-form-item label="学费缴纳方式">
-										<el-radio v-model="form2.pay_method" label="1">全款</el-radio>
-										<el-radio v-model="form2.pay_method" label="2">贷款</el-radio>
-										<el-radio v-model="form2.pay_method" label="3">分期</el-radio>
+										<el-radio v-model="fee.tuition_way" label="1">全款</el-radio>
+										<el-radio v-model="fee.tuition_way" label="2">贷款</el-radio>
+										<el-radio v-model="fee.tuition_way" label="3">分期</el-radio>
 									</el-form-item>
 									<el-form-item label="优惠方式">
-										<el-radio v-model="form2.sale_method" label="1">无</el-radio>
-										<el-radio v-model="form2.sale_method" label="2">活动</el-radio>
-										<el-radio v-model="form2.sale_method" label="3">预报名</el-radio>
-										<el-radio v-model="form2.sale_method" label="4">特批</el-radio>
+										<el-radio v-model="fee.cuppon_way" label="1">无</el-radio>
+										<el-radio v-model="fee.cuppon_way" label="2">活动</el-radio>
+										<el-radio v-model="fee.cuppon_way" label="3">预报名</el-radio>
+										<el-radio v-model="fee.cuppon_way" label="4">特批</el-radio>
 									</el-form-item>
 								</div>
 								<div class="form2-item-right">
 									<el-form-item label="专业">
-										<el-select v-model="form2.major" placeholder="请选择专业">
+										<el-select v-model="fee.course" placeholder="请选择专业">
 											<el-option label="Python+人工智能" value="1"></el-option>
 											<el-option label="JavaEE+大数据" value="2"></el-option>
 											<el-option label="UI全链路" value="3"></el-option>
@@ -243,10 +243,10 @@
 										</el-select>
 									</el-form-item>
 									<el-form-item label="学费： ">
-										<el-input placeholder="请输入内容" v-model="form2.tuition" :disabled="true"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.tuitionOrigin" :disabled="true"></el-input>
 									</el-form-item>
 									<el-form-item label="现金优惠">
-										<el-input placeholder="请输入内容" v-model="form2.cash_discount"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.tuitionMinus"></el-input>
 									</el-form-item>
 
 
@@ -257,7 +257,7 @@
 							<div class="form2-item">
 								<div class="form2-item-left">
 									<el-form-item label="住宿: ">
-										<el-radio-group v-model="form2.accommodation" @change="dealAccommodationChange">
+										<el-radio-group v-model="fee.room_way" @change="dealAccommodationChange">
 											<el-radio label="1">校内</el-radio>
 											<el-radio label="2">赋腾</el-radio>
 											<el-radio label="3">自理</el-radio>
@@ -268,16 +268,16 @@
 
 								<div class="form2-item-right">
 									<el-form-item label="住宿押金">
-										<el-input placeholder="请输入内容" v-model="form2.accommodation_deposit"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.room_deposit"></el-input>
 									</el-form-item>
 									<el-form-item label="宿舍租金">
-										<el-input placeholder="请输入内容" v-model="form2.accommodation_money"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.room_rent"></el-input>
 									</el-form-item>
 									<el-form-item label="管理费">
-										<el-input placeholder="请输入内容" v-model="form2.management"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.room_manage"></el-input>
 									</el-form-item>
 									<el-form-item label="网费">
-										<el-input placeholder="请输入内容" v-model="form2.net_money"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.room_net"></el-input>
 									</el-form-item>
 
 								</div>
@@ -287,7 +287,7 @@
 							<div class="form2-item">
 								<div class="form2-item-left">
 									<el-form-item label="电脑: ">
-										<el-radio-group v-model="form2.computer" @change="dealComputerChange">
+										<el-radio-group v-model="fee.pc_way" @change="dealComputerChange">
 											<el-radio label="1">购买</el-radio>
 											<el-radio label="2">租用</el-radio>
 											<el-radio label="3">自理</el-radio>
@@ -298,13 +298,13 @@
 
 								<div class="form2-item-right">
 									<el-form-item label="电脑购买费">
-										<el-input placeholder="请输入内容" v-model="form2.computer_buy"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.pc_buy"></el-input>
 									</el-form-item>
 									<el-form-item label="电脑租金">
-										<el-input placeholder="请输入内容" v-model="form2.computer_rent"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.pc_rent"></el-input>
 									</el-form-item>
 									<el-form-item label="电脑押金">
-										<el-input placeholder="请输入内容" v-model="form2.computer_deposit"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.pc_deposit"></el-input>
 									</el-form-item>
 								</div>
 							</div>
@@ -312,13 +312,13 @@
 							<div class="form2-item">
 								<div class="form2-item-left">
 									<el-form-item label="校服: ">
-										<el-radio-group v-model="form2.uniform" @change="dealUniformChange">
+										<el-radio-group v-model="fee.clothflag" @change="dealUniformChange">
 											<el-radio label="1">购买</el-radio>
 											<el-radio label="2">不购买</el-radio>
 										</el-radio-group>
 									</el-form-item>
 									<el-form-item label="被褥: ">
-										<el-radio-group v-model="form2.quilt" @change="dealQuiltChange">
+										<el-radio-group v-model="fee.blanketflag" @change="dealQuiltChange">
 											<el-radio label="1">购买</el-radio>
 											<el-radio label="2">自理</el-radio>
 										</el-radio-group>
@@ -326,10 +326,10 @@
 								</div>
 								<div class="form2-item-right">
 									<el-form-item label="校服:">
-										<el-input placeholder="请输入内容" v-model="form2.uniform_money"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.cloth"></el-input>
 									</el-form-item>
 									<el-form-item label="被褥: ">
-										<el-input placeholder="请输入内容" v-model="form2.quilt_money"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.blanket"></el-input>
 									</el-form-item>
 								</div>
 							</div>
@@ -337,7 +337,7 @@
 							<div class="form2-item form2-item-except">
 								<div class="form2-item-except-in">
 									<el-form-item label="应缴学费:">
-										<el-input placeholder="请输入内容" v-model="form2.tuition" :disabled="true"></el-input>
+										<el-input placeholder="请输入内容" v-model="fee.tuition" :disabled="true"></el-input>
 									</el-form-item>
 									<el-form-item label="杂费合计:">
 										<el-input placeholder="请输入内容" v-model="extras" :disabled="true"></el-input>
@@ -415,9 +415,9 @@
 					msg_person: "",
 
 					//咨询老师
-					msg_teacher: ""
-
-
+					msg_teacher: "",
+					
+					status:''
 				},
 
 				//选项卡第二部分
@@ -489,8 +489,11 @@
 				//弹窗口选项卡激活
 				alert_box_active: 0,
 
-				//下载下来的关于费用的对象
-				fee: {}
+				//下载下来的关于费用弹框的对象
+				fee: {},
+				
+				//弹框学生信息
+				student_item:{}
 			}
 		},
 		created: function() {
@@ -498,20 +501,19 @@
 			this.token = window.localStorage.getItem("token")
 		},
 		methods: {
-			downloadStudentList: function() {
-				var url = this.api.userListUrl;
-				this.axios.get(url).then(res => {
-					for (var item of res.data.list) {
-						if (item.paystate == 0) {
-							item.paystateStr = "欠费"
-						} else {
-							item.paystateStr = "缴清"
-						}
+			downloadStudentList: async function() {
+				
+				var res = await this.interfc.studentApi.studentList({})
+				for (var item of res.list) {
+					if (item.paystate == 0) {
+						item.paystateStr = "欠费"
+					} else {
+						item.paystateStr = "缴清"
 					}
-
-					this.student_list = res.data.list
-					this.getShowList()
-				})
+				}
+				this.student_list = res.list
+				this.getShowList()
+				
 			},
 
 			//根据当前 当前页面的大小 和 当前是第几个页面 切分数据
@@ -531,9 +533,9 @@
 				this.page_index = current_page;
 				this.getShowList()
 			},
+			
 			//搜索功能
-			dealSearch: function() {
-				var url = this.api.serachUrl;
+			dealSearch: async function() {
 				var dict = {
 					"page": 1,
 					"condition": {
@@ -546,133 +548,59 @@
 					},
 					"token": this.token
 				}
-				this.axios.post(url, dict).then(res => {
-					console.log(res.data)
-					if (res.data.code == 1) {
-						this.student_list = res.data.list
-						this.getShowList()
-						this.$message({
-							message: '搜索成功',
-							type: 'success'
-						});
-					} else {
-						this.$message({
-							message: '搜索失败',
-							type: 'error'
-						});
-					}
-				}).catch(error => {
+				var res = await this.interfc.studentApi.ListSerach(dict)
+				
+				
+				if (res.code == 1) {
+					this.student_list = res.list
+					this.getShowList()
+					this.$message({
+						message: '搜索成功',
+						type: 'success'
+					});
+				} else {
 					this.$message({
 						message: '搜索失败',
 						type: 'error'
 					});
-				})
+				}
+				
+				
 			},
-
+			
+			
 			//点击查看显示对话框
-			dealShowDialog: function(index) {
+			dealShowDialog: async function(index) {
 				this.alert_box = true
 				var student_item = this.show_list[index]
-				var s = {}
-
-				var url = this.api.feeUrl + "?uid=" + student_item._id;
-				console.log(url)
-				this.axios.get(url).then(res => {
-					console.log(res.data.fee)
-
-					this.fee = res.data.fee
-
-					s = res.data.fee
-
-					for (var attr in student_item) {
-						s[attr] = student_item[attr]
-					}
-
-					this.form2.length_of_schooling = s.term
-					this.form2.pay_method = s.tuition_way
-					this.form2.major = s.course
-					this.form2.sale_method = s.cuppon_way
-					this.form2.tuition = s.tuitionOrigin
-					this.form2.cash_discount = s.tuitionMinus
-					this.form2.tuition = s.tuition
-					this.form2.accommodation = s.room_way
-					this.form2.accommodation_money = s.room_rent
-					this.form2.accommodation_deposit = s.room_deposit
-					this.form2.management = s.room_manage
-					this.form2.net_money = s.room_net
-					this.form2.computer = s.pc_way
-					this.form2.computer_rent = s.pc_rent
-					this.form2.computer_buy = s.pc_buy
-					this.form2.computer_deposit = s.pc_deposit
-					this.form2.uniform_money = s.cloth
-					this.form2.quilt_money = s.blanket
-					this.form2.uniform = s.clothflag
-					this.form2.quilt = s.blanketflag
-					this.tform1.name = s.name
-					this.tform1.phone = s.phone
-					this.tform1.id_num = s.idcard
-					this.tform1.address = s.address
-					this.tform1.education = s.edu_level
-					this.tform1.graduate_school = s.edu_school
-					this.tform1.graduate_time = s.edu_profession
-					this.tform1.enter_class = s.classId
-					this.tform1.gender = s.sex
-					this.tform1.father = s.father
-					this.tform1.mother = s.mother
-					this.tform1.father_phone = s.fatherPhone
-					this.tform1.mother_phone = s.motherPhone
-					this.tform1.msg_from = s.source
-					this.tform1.transportation = s.traffic
-					this.tform1.msg_person = s.enroller
-					this.tform1.msg_teacher = s.consultant
-					this.tform1.remarks = s.remark
-				})
-
-
-
-				var c = {
-					// 					"term": this.form2.length_of_schooling,
-					// 					"tuition_way": this.form2.pay_method,
-					// 					"course": this.form2.major,
-					// 					"cuppon_way": this.form2.sale_method,
-					// 					"tuitionOrigin": this.form2.tuition,
-					// 					"tuitionMinus": this.form2.cash_discount,
-					// 					"tuition": this.form2.tuition,
-					// 					"room_way": this.form2.accommodation,
-					// 					"room_rent": this.form2.accommodation_money,
-					// 					"room_deposit": this.form2.accommodation_deposit,
-					// 					"room_manage": this.form2.management,
-					// 					"room_net": this.form2.net_money,
-					// 					"pc_way": this.form2.computer,
-					// 					"pc_rent": this.form2.computer_rent,
-					// 					"pc_buy": this.form2.computer_buy,
-					// 					"pc_deposit": this.form2.computer_deposit,
-					// 					"cloth": this.form2.uniform_money,
-					// 					"blanket": this.form2.quilt_money,
-					// 					"clothflag": this.form2.uniform,
-					// 					"blanketflag": this.form2.quilt,
-					// 					"fee": this.extras,
-					// 					"feeTotal": this.allin,
-					// 					"name": this.tform1.name,
-					// 					"phone": this.tform1.phone,
-					// 					"idcard": this.tform1.id_num,
-					// 					"address": this.tform1.address,
-					// 					"edu_level": this.tform1.education,
-					// 					"edu_school": this.tform1.graduate_school,
-					// 					"edu_profession": this.tform1.graduate_time,
-					// 					"classId": this.tform1.enter_class,
-					// 					"sex": this.tform1.gender,
-					// 					"father": this.tform1.father,
-					// 					"mother": this.tform1.mother,
-					// 					"fatherPhone": this.tform1.father_phone,
-					// 					"motherPhone": this.tform1.mother_phone,
-					// 					"source": this.tform1.msg_from,
-					// 					"traffic": this.tform1.transportation,
-					// 					"enroller": this.tform1.msg_person,
-					// 					"consultant": this.tform1.msg_teacher,
-					// 					"remark": this.tform1.remarks,
-					// 					"token": this.token
+				this.student_item = student_item
+				
+				var dict = {
+					uid: student_item._id
 				}
+				var res = await this.interfc.studentApi.fee(dict)
+				console.log(res)
+				if(res.code == 1){
+					var fee = res.fee
+					var tuitionList = fee.tuitionList
+					var feeList = fee.feeList
+					
+					
+					for(var attr in fee){
+						fee[attr] = fee[attr].toString()
+					}
+					
+					fee.tuitionList = tuitionList
+					fee.feeList = feeList
+					
+					this.fee = fee
+				}else{
+					this.$message({
+						message: '获取费用信息失败',
+						type: 'error'
+					});
+				}
+
 			},
 
 			//选项卡更改

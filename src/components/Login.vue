@@ -60,7 +60,7 @@
 			creatShowCode:function(){
 					this.showCode = parseInt(Math.random() * 10)+""+parseInt(Math.random() * 10)+""+parseInt(Math.random() * 10)+""+parseInt(Math.random() * 10)
 			},
-			submitForm:function(){
+			submitForm:async function(){
 				if(this.ruleForm2.code != this.showCode){
 					this.$message({
 						type:"error",
@@ -69,48 +69,40 @@
 					return
 				}
 				
-				var url = this.api.loginUrl;
 				var dict = {
 					username:this.ruleForm2.acount,
 					password:this.ruleForm2.password
 				}
-				this.axios.post(url,dict).then(res => {
-					console.log(res.data)
-					
+				var res = await this.interfc.studentApi.logIn(dict)
+				
 					//登录失败
-					if(res.data.code != 1){
-						this.$message({
-							type:"error",
-							message:"登录失败，"+ res.data.msg
-						});
-						
-						return
-					}
-					
-					//登录成功
-					window.localStorage.setItem('islogin', '1');
-					window.localStorage.setItem('token', res.data.token);
-					window.localStorage.setItem('user',JSON.stringify(res.data.user));
-					
-					//将classlist存入store中
-					this.$store.commit('setClassList',res.data.classlist)
-					
-					this.$message({
-						type:"success",
-						message:"登录成功"
-					});
-					
-					this.$router.push({path: '/main'})
-					
-					
-					// var cat = localStorage.getItem('myCat');
-				}).catch(error => {
-					console.log(error)
+				if(res.code != 1){
 					this.$message({
 						type:"error",
-						message:"登录出错"
+						message:"登录失败，"+ res.msg
 					});
-				})
+					
+					return
+				}
+				
+				//登录成功
+				window.localStorage.setItem('islogin', '1');
+				window.localStorage.setItem('token', res.token);
+				window.localStorage.setItem('user',JSON.stringify(res.user));
+				
+				//将classlist存入store中
+				this.$store.commit('setClassList',res.classlist)
+				
+				this.$message({
+					type:"success",
+					message:"登录成功"
+				});
+				
+				this.$router.push({path: '/main'})
+				
+				
+				
+				
 			},
 			resetForm:function(){
 				this.ruleForm2.acount = this.ruleForm2.code = this.ruleForm2.password = ""

@@ -4,12 +4,12 @@ import HelloWorld from '@/components/HelloWorld'
 
 
 import StudentAdd from '@/components/student/StudentAdd'
+import StudentScore from '@/components/student/StudentScore'
 import Login from '@/components/Login'
 import Main from '@/components/Main'
 import StudentList from '@/components/StudentList'
 import StudentDown from '@/components/StudentDown'
 import StudentExport from '@/components/StudentExport'
-import StudentScore from '@/components/StudentScore'
 import Welcome from '@/components/Welcome'
 
 Vue.use(Router)

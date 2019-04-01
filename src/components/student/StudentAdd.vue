@@ -80,8 +80,6 @@
 		},
 		methods: {
 			async onSubmit() {
-				var url = this.api.addUserUrl
-				var url2 = this.api.paymentUrl
 				var dict = {
 					"term": this.$store.state.StudentFeeForm.length_of_schooling,
 					"tuition_way": this.$store.state.StudentFeeForm.pay_method,
@@ -126,7 +124,7 @@
 					"token": this.token
 				}
 				
-				var addUserRes = await this.api.addUser(dict)
+				var addUserRes = await this.interfc.studentApi.addUser(dict)
 				
 				
 				var dict2 = {
@@ -135,7 +133,7 @@
 					feeList:this.$store.state.feeList
 				}
 				
-				var paymentRes = await this.api.addPayment(dict2)
+				var paymentRes = await this.interfc.studentApi.addPayment(dict2)
 				
 				if(addUserRes.code == 1 && paymentRes.msg){
 					this.$message({

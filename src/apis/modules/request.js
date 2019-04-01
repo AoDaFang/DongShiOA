@@ -1,10 +1,14 @@
 import axios from 'axios'
+//restful api get post put delete
+// 这里面封装的是各种请求方法
+var host = "http://api.netallin.com/"
 
 function request(params) {
 	
 	if(params.method == 'get'){
 		return new Promise((resolve, reject) => {
-			axios.get(params.url, params.params)
+			console.log('request. ',params)
+			axios.get(host + params.url, {params:params.params})
 				.then((response) => {
 					resolve(response.data);
 				})
@@ -16,7 +20,7 @@ function request(params) {
 	
 	if(params.method == 'post'){
 		return new Promise((resolve, reject) => {
-			axios.post(params.url, params.params)
+			axios.post(host + params.url, params.params)
 				.then((response) => {
 					resolve(response.data);
 				})
