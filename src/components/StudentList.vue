@@ -280,7 +280,7 @@
 										<el-input placeholder="请输入内容" v-model="fee.room_net"></el-input>
 									</el-form-item>
 								</div>
-								
+
 							</div>
 
 
@@ -356,7 +356,7 @@
 					<!-- 选项卡第三部分 -->
 					<el-tab-pane label="缴费计划" name="2">
 						<el-table :data="this.fee_plan" border style="width: 100%">
-							<el-table-column prop="name" label="姓名" >
+							<el-table-column prop="name" label="姓名">
 							</el-table-column>
 							<el-table-column prop="type" label="费用类型">
 							</el-table-column>
@@ -378,6 +378,10 @@
 
 
 		</div>
+		<download-excel class="export-excel-wrapper" :data="show_list"  name="学员信息.xls">
+			<!-- 上面可以自定义自己的样式，还可以引用其他组件button -->
+			<el-button type="primary" size="small">导出EXCEL</el-button>
+		</download-excel>
 	</div>
 </template>
 
@@ -503,9 +507,9 @@
 
 				//下载下来的关于费用弹框的对象
 				fee: {},
-				
+
 				//缴费计划列表
-				fee_plan:[],
+				fee_plan: [],
 
 				//弹框学生信息
 				student_item: {}
@@ -599,24 +603,24 @@
 					var fee = res.fee
 					var tuitionList = fee.tuitionList
 					var feeList = fee.feeList
-					
+
 					//生成一个缴费计划的列表
 					var feePlan = []
-					for(var attr in fee.tuitionList){
+					for (var attr in fee.tuitionList) {
 						var temp = fee.tuitionList[attr]
 						temp.name = student_item.name
 						temp.type = "学费"
 						feePlan.push(temp)
 					}
-					for(var attr in fee.feeList){
+					for (var attr in fee.feeList) {
 						var temp = fee.feeList[attr]
 						temp.name = student_item.name
 						temp.type = "杂费"
 						feePlan.push(temp)
 					}
 					this.fee_plan = feePlan
-					
-					
+
+
 					//将数字都处理成字符串，以便element ui 识别
 					for (var attr in fee) {
 						fee[attr] = fee[attr].toString()
@@ -791,7 +795,7 @@
 			//弹窗修改信息
 			dealModify: async function() {
 				var dict = {
-					"uid":this.student_item._id,
+					"uid": this.student_item._id,
 					"term": this.form2.length_of_schooling,
 					"tuition_way": this.form2.pay_method,
 					"course": this.form2.major,
@@ -832,23 +836,23 @@
 					"remark": this.tform1.remarks,
 					"token": this.token,
 				}
-				
+
 				var addUserRes = await this.interfc.studentApi.addUser(dict)
 				console.log(addUserRes)
-				if(addUserRes.code == 1){
+				if (addUserRes.code == 1) {
 					this.$message({
 						message: '修改成功',
 						type: 'success'
 					});
 					this.active = 3
-				}else{
+				} else {
 					this.$message({
 						message: '修改失败',
 						type: 'error'
 					});
 				}
-				
-				
+
+
 			}
 		},
 		computed: {
