@@ -140,6 +140,7 @@
 						message: '添加成功',
 						type: 'success'
 					});
+					this.active = 3
 				}else{
 					this.$message({
 						message: '添加失败',

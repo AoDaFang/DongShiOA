@@ -279,8 +279,8 @@
 									<el-form-item label="网费">
 										<el-input placeholder="请输入内容" v-model="fee.room_net"></el-input>
 									</el-form-item>
-
 								</div>
+								
 							</div>
 
 
@@ -355,7 +355,20 @@
 
 					<!-- 选项卡第三部分 -->
 					<el-tab-pane label="缴费计划" name="2">
-						
+						<el-table :data="this.fee_plan" border style="width: 100%">
+							<el-table-column prop="name" label="姓名" >
+							</el-table-column>
+							<el-table-column prop="type" label="费用类型">
+							</el-table-column>
+							<el-table-column prop="deadline" label="缴费日期">
+							</el-table-column>
+							<el-table-column prop="money" label="	应缴">
+							</el-table-column>
+							<el-table-column prop="paid" label="	已缴">
+							</el-table-column>
+							<el-table-column prop="left" label="	欠费">
+							</el-table-column>
+						</el-table>
 					</el-tab-pane>
 				</el-tabs>
 
@@ -384,7 +397,6 @@
 
 				// 选项卡第一部分
 				tform1: {
-
 					name: "",
 					phone: "",
 					id_num: 110100201101010123,
@@ -416,8 +428,8 @@
 
 					//咨询老师
 					msg_teacher: "",
-					
-					status:''
+
+					status: ''
 				},
 
 				//选项卡第二部分
@@ -492,8 +504,11 @@
 				//下载下来的关于费用弹框的对象
 				fee: {},
 				
+				//缴费计划列表
+				fee_plan:[],
+
 				//弹框学生信息
-				student_item:{}
+				student_item: {}
 			}
 		},
 		created: function() {
@@ -502,7 +517,7 @@
 		},
 		methods: {
 			downloadStudentList: async function() {
-				
+
 				var res = await this.interfc.studentApi.studentList({})
 				for (var item of res.list) {
 					if (item.paystate == 0) {
@@ -513,7 +528,7 @@
 				}
 				this.student_list = res.list
 				this.getShowList()
-				
+
 			},
 
 			//根据当前 当前页面的大小 和 当前是第几个页面 切分数据
@@ -533,7 +548,7 @@
 				this.page_index = current_page;
 				this.getShowList()
 			},
-			
+
 			//搜索功能
 			dealSearch: async function() {
 				var dict = {
@@ -549,8 +564,8 @@
 					"token": this.token
 				}
 				var res = await this.interfc.studentApi.ListSerach(dict)
-				
-				
+
+
 				if (res.code == 1) {
 					this.student_list = res.list
 					this.getShowList()
@@ -564,37 +579,54 @@
 						type: 'error'
 					});
 				}
-				
-				
+
+
 			},
-			
-			
+
+
 			//点击查看显示对话框
 			dealShowDialog: async function(index) {
 				this.alert_box = true
 				var student_item = this.show_list[index]
 				this.student_item = student_item
-				
+
 				var dict = {
 					uid: student_item._id
 				}
 				var res = await this.interfc.studentApi.fee(dict)
 				console.log(res)
-				if(res.code == 1){
+				if (res.code == 1) {
 					var fee = res.fee
 					var tuitionList = fee.tuitionList
 					var feeList = fee.feeList
 					
+					//生成一个缴费计划的列表
+					var feePlan = []
+					for(var attr in fee.tuitionList){
+						var temp = fee.tuitionList[attr]
+						temp.name = student_item.name
+						temp.type = "学费"
+						feePlan.push(temp)
+					}
+					for(var attr in fee.feeList){
+						var temp = fee.feeList[attr]
+						temp.name = student_item.name
+						temp.type = "杂费"
+						feePlan.push(temp)
+					}
+					this.fee_plan = feePlan
 					
-					for(var attr in fee){
+					
+					//将数字都处理成字符串，以便element ui 识别
+					for (var attr in fee) {
 						fee[attr] = fee[attr].toString()
 					}
-					
+
 					fee.tuitionList = tuitionList
 					fee.feeList = feeList
-					
+
 					this.fee = fee
-				}else{
+				} else {
 					this.$message({
 						message: '获取费用信息失败',
 						type: 'error'
@@ -757,8 +789,66 @@
 			},
 
 			//弹窗修改信息
-			dealModify: function() {
-				alert("暂无接口")
+			dealModify: async function() {
+				var dict = {
+					"uid":this.student_item._id,
+					"term": this.form2.length_of_schooling,
+					"tuition_way": this.form2.pay_method,
+					"course": this.form2.major,
+					"cuppon_way": this.form2.sale_method,
+					"tuitionOrigin": this.form2.tuition,
+					"tuitionMinus": this.form2.cash_discount,
+					"tuition": this.form2.tuition,
+					"room_way": this.form2.accommodation,
+					"room_rent": this.form2.accommodation_money,
+					"room_deposit": this.form2.accommodation_deposit,
+					"room_manage": this.form2.management,
+					"room_net": this.form2.net_money,
+					"pc_way": this.form2.computer,
+					"pc_rent": this.form2.computer_rent,
+					"pc_buy": this.form2.computer_buy,
+					"pc_deposit": this.form2.computer_deposit,
+					"cloth": this.form2.uniform_money,
+					"blanket": this.form2.quilt_money,
+					"clothflag": this.form2.uniform,
+					"blanketflag": this.form2.quilt,
+					"name": this.tform1.name,
+					"phone": this.tform1.phone,
+					"idcard": this.tform1.id_num,
+					"address": this.tform1.address,
+					"edu_level": this.tform1.education,
+					"edu_school": this.tform1.graduate_school,
+					"edu_profession": this.tform1.graduate_time,
+					"classId": this.tform1.enter_class,
+					"sex": this.tform1.gender,
+					"father": this.tform1.father,
+					"mother": this.tform1.mother,
+					"fatherPhone": this.tform1.father_phone,
+					"motherPhone": this.tform1.mother_phone,
+					"source": this.tform1.msg_from,
+					"traffic": this.tform1.transportation,
+					"enroller": this.tform1.msg_person,
+					"consultant": this.tform1.msg_teacher,
+					"remark": this.tform1.remarks,
+					"token": this.token,
+				}
+				
+				var addUserRes = await this.interfc.studentApi.addUser(dict)
+				console.log(addUserRes)
+				if(addUserRes.code == 1){
+					this.$message({
+						message: '修改成功',
+						type: 'success'
+					});
+					this.active = 3
+				}else{
+					this.$message({
+						message: '修改失败',
+						type: 'error'
+					});
+				}
+				
+				
 			}
 		},
 		computed: {
