@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="main-box">
-			<el-table :data="show_list" border style="width: 100%">
+			<el-table size="mini" :data="show_list" border style="width: 100%">
 				<el-table-column prop="date" label="id">
 				</el-table-column>
 				<el-table-column prop="id" label="学号">
@@ -92,7 +92,7 @@
 				<el-form :model="form2">
 
 					<el-form-item label="违纪日期">
-						<el-date-picker v-model="form2.time" type="date" placeholder="选择日期"></el-date-picker>
+						<el-date-picker value-format="yyyyMMdd" v-model="form2.time" type="date" placeholder="选择日期"></el-date-picker>
 					</el-form-item>
 
 					<el-form-item label="违纪原因">
@@ -139,80 +139,84 @@
 					wrong_type: "",
 					sub_score: 3
 				},
-				
-				
-				
+
+
+
 				score_list: [],
-				
+
 				show_list: [],
-				
+
 				//一页信息的条数
 				page_size: 10,
 				//当前的页码数
 				page_index: 1,
-				
+
 				//存储某个学生的扣分记录,用以展示某个学生的扣分记录
 				socre_item: [],
 				//是否弹出扣分记录对话框
 				student_score: false,
-				
+
 				//是否弹出添加扣分的对话框
 				add_subscore: false,
-				
+
 				//当前被点击扣分的 score 项，用以发起添加扣分的请求
 				current_score_item: {},
+
+				token: ""
 			}
 		},
-		created:function(){
+		created: function() {
 			this.downloadDate()
+
+			this.token = window.localStorage.getItem("token")
 		},
 		methods: {
 			downloadDate: async function() {
 				this.active_page = 0
-				
-				
+
+
 				var res = await this.interfc.studentApi.scoreByStudent({})
 				this.score_list = res.list
 				this.getShowList();
-			
+
 			},
 			//分页器页面大小变化
 			handleSizeChange: function(current_size) {
 				this.page_size = current_size;
 				this.getShowList()
 			},
-			
+
 			//分页器当前页改变
 			handleCurrentChange: function(current_page) {
 				this.page_index = current_page;
 				this.getShowList()
 			},
-			
+
 			//通分页器的数据获取需要展示的数据
 			getShowList: function() {
 				var page_size = this.page_size;
 				var page_index = this.page_index;
-			
+
 				this.show_list = this.score_list.slice((page_index - 1) * page_size, page_index * page_size);
 			},
-			
+
 			//点击查看
 			dealShowDialog: async function(index) {
 				this.student_score = true
 				var score_item = this.show_list[index]
-			
+
 				score_item.uid = score_item._id
 				score_item.token = this.token;
-			
+
 				console.log(score_item)
-				
-				
+
+
 				var res = await this.interfc.studentApi.studentScoreRecord(score_item)
-				if(res.code == 1){
+				if (res.code == 1) {
 					this.socre_item = res.list
 					console.log(res.list)
 				}
-			
+
 			},
 			//处理扣分
 			dealSubScoreDialog: function(index) {
@@ -221,55 +225,58 @@
 				score_item.token = this.token;
 				score_item.uid = score_item._id
 				this.current_score_item = score_item
-			
+
 				console.log(score_item)
-			
+
 				this.add_subscore = true
-			
+
 			},
 			//点击添加扣分的按钮
 			dealAddSubScore: async function() {
-				var url = this.api.studentAddWrongUrl
 				var dict = this.current_score_item
 				dict.day = this.form2.time
 				dict.minus = this.form2.sub_score
 				dict.way = this.form2.wrong_type
-				
+				dict.uid = this.current_score_item._id
+				dict.token = this.token
+
 				var res = await this.interfc.studentApi.studentAddWrong(dict)
-				
+
 				if (res.code == 1) {
 					this.$message({
 						message: '添加成功',
 						type: 'success'
 					});
-							
+
 					this.add_subscore = false
+
+					this.downloadDate()
 				} else {
 					this.$message({
 						message: '添加失败',
 						type: 'error'
 					});
 				}
-				
-			
+
+
 			},
-		
+
 			//点击搜索按钮的时候触发
-			dealScoreSearch: async function(){
+			dealScoreSearch: async function() {
 				var dict = {
-					name:this.form1.name,
-					id:this.form1.id,
-					classId:this.form1.classId
+					name: this.form1.name,
+					id: this.form1.id,
+					classId: this.form1.classId
 				}
 				var res = await this.interfc.studentApi.searchScore(dict)
-				if(res.code == 1){
+				if (res.code == 1) {
 					this.score_list = res.list
 					this.getShowList()
 					this.$message({
 						message: '搜索成功',
 						type: 'success'
 					});
-				}else{
+				} else {
 					this.$message({
 						message: '搜索失败',
 						type: 'error'
@@ -290,7 +297,7 @@
 	.score-btns {
 		margin-top: 20px;
 	}
-	
+
 	.search-box .el-form {
 		background-color: #fff;
 		display: flex;
@@ -298,11 +305,11 @@
 		height: 80px;
 		margin-top: 20px;
 	}
-	
+
 	.main-box {
 		margin-top: 20px;
 	}
-	
+
 	.search-box .el-form .el-form-item {
 		margin: 0;
 	}

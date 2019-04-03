@@ -21,6 +21,7 @@
 					<el-menu-item index="2-3">导出学员</el-menu-item>
 					<el-menu-item index="2-4">学分管理</el-menu-item>
 					<el-menu-item index="2-5">末班管理</el-menu-item>
+					<el-menu-item index="2-6">就业信息</el-menu-item>
 				</el-menu-item-group>
 			</el-submenu>
 
@@ -64,7 +65,9 @@
 					"2-2": "/main/student_add",
 					"2-3": "/main/student_export",
 					"2-4": "/main/student_score",
-					"2-5": "/main/student_down"
+					"2-5": "/main/student_down",
+					"2-6": "/main/student_employment",
+					"3-5": "/main/finance_out"
 				}
 
 				var path = dict[key];

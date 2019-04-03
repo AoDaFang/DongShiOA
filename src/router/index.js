@@ -5,12 +5,16 @@ import HelloWorld from '@/components/HelloWorld'
 
 import StudentAdd from '@/components/student/StudentAdd'
 import StudentScore from '@/components/student/StudentScore'
+import StudentEmployment from '@/components/student/StudentEmployment'
 import Login from '@/components/Login'
 import Main from '@/components/Main'
 import StudentList from '@/components/StudentList'
 import StudentDown from '@/components/StudentDown'
 import StudentExport from '@/components/StudentExport'
 import Welcome from '@/components/Welcome'
+
+import FinanceOut from '@/components/finance/FinanceOut'
+
 
 Vue.use(Router)
 var r = new Router({
@@ -27,7 +31,8 @@ var r = new Router({
 			path: '/login',
 			name: 'login',
 			component: Login
-		}, {
+		}, 
+		{
 			path: '/main',
 			name: 'main',
 			component: Main,
@@ -56,7 +61,16 @@ var r = new Router({
 					path: '/main/student_down',
 					name: 'StudentDown',
 					component: StudentDown
+				}, {
+					path: '/main/student_employment',
+					name: 'StudentDown',
+					component: StudentEmployment
+				}, {
+					path: '/main/finance_out',
+					name: 'FinanceOut',
+					component: FinanceOut
 				}
+				
 
 
 
