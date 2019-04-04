@@ -135,7 +135,7 @@
 					<el-input v-model="current_out_item.money" autocomplete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="实际支出日期">
-					<el-date-picker v-model="current_out_item.utime" type="date" placeholder="选择日期">
+					<el-date-picker v-model="current_out_item.day" type="date" placeholder="选择日期">
 					</el-date-picker>
 				</el-form-item>
 				<el-form-item label="支付方式">
@@ -333,7 +333,23 @@
 
 			//显示修改弹窗
 			dealShowDialog: function(index) {
-				var current_out_item = this.show_list[index]
+				
+				var current_out_item = {}
+				
+				for (var attr in this.show_list[index]){
+					current_out_item[attr] = this.show_list[index][attr]
+				}
+				
+				console.log(current_out_item)
+				
+				var day = current_out_item.day + '';
+				
+				var temp_day = day.substring(0,4) + '-' + day.substring(4,6) + '-' +  day.substring(6,8)
+				
+				
+				
+				current_out_item.day = temp_day
+				
 				current_out_item.remark = ''
 				this.current_out_item = current_out_item
 
@@ -346,6 +362,8 @@
 			dealModifyOut: async function() {
 				var dict = this.current_out_item
 				var res = await this.interfc.financeApi.modifyFinanceOut(dict)
+				
+				
 				if (res.code == 1) {
 					this.$message({
 						message: '修改成功',

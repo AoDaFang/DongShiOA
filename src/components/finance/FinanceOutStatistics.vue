@@ -94,7 +94,7 @@
 				var dict = {
 					statby: this.search_from.radio,
 					from: this.search_from.time[0],
-					to: this.search_from.time[0],
+					to: this.search_from.time[1],
 					token: this.token
 				}
 				var res = await this.interfc.financeApi.getOutStatistice(dict)
