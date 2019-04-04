@@ -10,7 +10,7 @@
 		</div>
 		
 		<div v-if="active_page == 1">
-			2
+			<finance-out-statistics></finance-out-statistics>
 		</div>
 		
 	</div>
@@ -18,6 +18,7 @@
 
 <script>
 	import FinanceOutList from '@/components/finance/FinanceOutList.vue'
+	import FinanceOutStatistics from '@/components/finance/FinanceOutStatistics.vue'
 	
 	export default {
 		name: 'HelloWorld',
@@ -30,7 +31,8 @@
 			
 		},
 		components:{
-			'finance-out-list':FinanceOutList
+			'finance-out-list':FinanceOutList,
+			'finance-out-statistics':FinanceOutStatistics
 		}
 	}
 </script>

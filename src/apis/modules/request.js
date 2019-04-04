@@ -29,6 +29,31 @@ function request(params) {
 				});
 		})
 	}
+	
+	if(params.method == 'put'){
+		return new Promise((resolve, reject) => {
+			axios.put(host + params.url, params.params)
+				.then((response) => {
+					resolve(response.data);
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		})
+	}
+	
+	if(params.method == 'delete'){
+		return new Promise((resolve, reject) => {
+			console.log('request. ',params)
+			axios.delete(host + params.url, {data:params.params})
+				.then((response) => {
+					resolve(response.data);
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		})
+	}
 }
 
 export default{
