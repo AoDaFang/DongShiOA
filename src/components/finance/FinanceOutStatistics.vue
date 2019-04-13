@@ -79,7 +79,25 @@
 						name: '支出',
 						type: 'bar',
 						// data: [5, 20, 36, 10, 10, 20]
-						data: []
+						data: [],
+						
+						//====设置颜色============
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									var colorList = [
+										'#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3',
+										'#B74AE5', '#0AAF9F', '#E89589'
+									];
+									return colorList[params.dataIndex]
+								}
+							}
+						},
+						label: {
+							show: false
+						},
+						
+						//=====设置颜色
 					}]
 				},
 
